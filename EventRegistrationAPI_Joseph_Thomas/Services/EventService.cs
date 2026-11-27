@@ -43,5 +43,23 @@ namespace EventRegistrationAPI_Joseph_Thomas.Services
                .FirstOrDefaultAsync();
         }
 
+        public async Task<EventDto> CreateAsync(CreateEventDto dto)
+        {
+            // Map DTO -> entity (the server sets internal fields)
+            var newEvent = new Event
+            {
+            Title = dto.Title,
+            Location = dto.Location,
+            EventDate = dto.EventDate,
+            Capacity = dto.Capacity
+        };
+
+            _context.Events.Add(newEvent);
+            await _context.SaveChangesAsync();
+
+            // Read it back as a DTO so the response includes the category name
+            return (await GetByIdAsync(newEvent.EventId))!;
+        }
+
     }
 }

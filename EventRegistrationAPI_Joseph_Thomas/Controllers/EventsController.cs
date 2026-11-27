@@ -31,5 +31,23 @@ namespace EventRegistrationAPI_Joseph_Thomas.Controllers
             }
             return Ok(product);
         }
+
+        [HttpPost]
+        public async Task<ActionResult<EventDto>> CreateEvent(CreateEventDto dto)
+        {
+            try
+            {
+                var created = await _eventService.CreateAsync(dto);
+                return CreatedAtAction(nameof(GetById), new { id = created.EventId }, created);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);    // 400 Bad Request: category doesn't exist
+            }
+            catch (InvalidOperationException ex)
+            {
+                return Conflict(ex.Message);      // 409 Conflict: duplicate name
+            }
+        }
     }
 }
