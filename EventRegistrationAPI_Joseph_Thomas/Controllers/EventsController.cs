@@ -14,6 +14,7 @@ namespace EventRegistrationAPI_Joseph_Thomas.Controllers
             _eventService = eventService;
         }
 
+        // GET: api/events
         [HttpGet]
         public async Task<ActionResult<List<EventDto>>> GetAll()
         {
@@ -21,6 +22,7 @@ namespace EventRegistrationAPI_Joseph_Thomas.Controllers
             return Ok(products);
         }
 
+        // GET: api/events/5
         [HttpGet("{id}")]
         public async Task<ActionResult<EventDto>> GetById(int id)
         {
@@ -32,6 +34,7 @@ namespace EventRegistrationAPI_Joseph_Thomas.Controllers
             return Ok(product);
         }
 
+        // POST: api/events
         [HttpPost]
         public async Task<ActionResult<EventDto>> CreateEvent(CreateEventDto dto)
         {

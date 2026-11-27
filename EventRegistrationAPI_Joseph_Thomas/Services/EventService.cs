@@ -10,6 +10,7 @@ namespace EventRegistrationAPI_Joseph_Thomas.Services
         private readonly AppDbContext _context;
         public EventService(AppDbContext context) { _context = context; }
 
+        // Gets all events, including the number of registrations and spots left.
         public async Task<List<EventDto>> GetAllAsync()
         {
             return await _context.Events
@@ -26,6 +27,7 @@ namespace EventRegistrationAPI_Joseph_Thomas.Services
                 .ToListAsync();
         }
 
+        //Gets a single event by its ID, or null if it doesn't exist.
         public async Task<EventDto?> GetByIdAsync(int id)
         {
             return await _context.Events
@@ -43,6 +45,7 @@ namespace EventRegistrationAPI_Joseph_Thomas.Services
                .FirstOrDefaultAsync();
         }
 
+        // Creates a new event. Throws ArgumentException if the category doesn't exist, or InvalidOperationException if the name is a duplicate.
         public async Task<EventDto> CreateAsync(CreateEventDto dto)
         {
             // Map DTO -> entity (the server sets internal fields)
