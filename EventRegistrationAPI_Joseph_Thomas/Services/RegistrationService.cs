@@ -38,8 +38,6 @@ namespace EventRegistrationAPI_Joseph_Thomas.Services
         }
 
         // Registers a person for an event.
-        // The rules run in the order the assignment requires, so a duplicate email
-        // gets the duplicate message even when the event is also full.
         public async Task<RegistrationDto> RegisterAsync(int eventId, CreateRegistrationDto dto)
         {
             var ev = await _context.Events.FirstOrDefaultAsync(e => e.EventId == eventId);
@@ -82,8 +80,6 @@ namespace EventRegistrationAPI_Joseph_Thomas.Services
         }
 
         // Cancels a registration. Returns false if it doesn't exist.
-        // SpotsLeft is calculated from the registration count (not stored),
-        // so deleting the row frees a spot automatically.
         public async Task<bool> CancelAsync(int registrationId)
         {
             var registration = await _context.Registrations.FindAsync(registrationId);
