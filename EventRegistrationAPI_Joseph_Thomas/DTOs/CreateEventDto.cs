@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using EventRegistrationAPI_Joseph_Thomas.Validation;
 
 namespace EventRegistrationAPI_Joseph_Thomas.DTOs
 {
@@ -11,7 +12,7 @@ namespace EventRegistrationAPI_Joseph_Thomas.DTOs
         [Required(ErrorMessage = "Location is required.")]
         public string Location { get; set; } = string.Empty;
 
-        //[FutureDate(ErrorMessage = "Event date must be in the future.")]
+        [FutureDate(ErrorMessage = "Event date must be in the future.")]
         public DateTime EventDate { get; set; }
 
         [Range(1, 500, ErrorMessage = "Capacity must be between 1 and 500.")]
